@@ -5,7 +5,7 @@ export default function TopNav() {
   return (
     <div>
         <div>
-            <span>Shajahan Shaik</span>
+        <Link href='/'><span>Shajahan Shaik</span></Link>
         </div>
         <div>
             <Link href='/resume'>Resume</Link>
