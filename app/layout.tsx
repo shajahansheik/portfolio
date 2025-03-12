@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import TopNav from "./components/topnav";
-import BottomNav from "./components/bottomnav";
 
 export const metadata: Metadata = {
   title: "Shajahan",
@@ -16,11 +15,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        
+        className="h-screen w-screen"
       >
+        <div className="h-[10%]">
         <TopNav/>
+        </div>
+        <div className="h-[90%]">
         {children}
-        <BottomNav/>
+        </div>
+        
       </body>
     </html>
   );
