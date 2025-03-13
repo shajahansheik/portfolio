@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className="h-screen w-screen"
+        className="h-screen w-screen overflow-hidden"
       >
         <div className="h-[10%]">
         <TopNav/>
