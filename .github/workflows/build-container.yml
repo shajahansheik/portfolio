@@ -1,4 +1,4 @@
-name: Hello World
+name: Build Container
 
 on :
     workflow_dispatch:
@@ -11,7 +11,13 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - name: Say Hello
-              run: echo "Hello World"
-            - name: print version
-              run: echo "${{ github.event.inputs.version }}"
+            - name: Check out
+              uses: actions/checkout@v2
+            - name: Set up node
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '18'
+            - name: Install dependencies
+              run: npm install
+            - name: Build App
+              run: npm run build
