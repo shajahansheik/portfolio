@@ -2,10 +2,16 @@ name: Hello World
 
 on :
     workflow_dispatch:
+        inputs:
+            version:
+                description: "Version update"
+                required: true
 
 jobs: 
-    say-hello:
-        runs-on : ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
         steps:
-            - name: Print Greetings
-              run : echo "hello shajahan" 
+            - name: Say Hello
+              run: echo "Hello World"
+            - name: print version
+              run: echo "${{ github.event.inputs.version }}"
