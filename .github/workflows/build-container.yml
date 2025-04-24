@@ -13,15 +13,17 @@ jobs:
         steps:
             - name: Check out
               uses: actions/checkout@v2
-            - name: Set up node
-              uses: actions/setup-node@v2
-              with:
-                  node-version: '18'
-            - name: Install dependencies
-              run: npm install
-            - name: bump version
+            
+            - name: Set Up
               run: |
-                npm version patch -m "bump version to %s"
-                git push origin main --tags
-            - name: Build App
-              run: npm run build
+                git config --global user.name "shajahansheik"
+                git config --global user.email "shajahan.j2se@gmail.com"
+              
+            - name: Bump Version
+              id: bump-version
+              run: |
+                npm version patch
+                curr_version=$(node -p "require('./package.json').version")
+                echo "Current version: $curr_version"
+                git push https://github.com/shajahansheik/portfolio.git HEAD:main --follow-tags
+                echo "Version updated to $curr_version"
