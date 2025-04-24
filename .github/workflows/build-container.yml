@@ -1,11 +1,9 @@
 name: Build Container
 
 on :
-    workflow_dispatch:
-        inputs:
-            version:
-                description: "Version update"
-                required: true
+    push:
+        branches:
+            - main
 
 jobs: 
     build:
@@ -13,11 +11,8 @@ jobs:
         steps:
             - name: Check out
               uses: actions/checkout@v2
-            - name: Set up node
-              uses: actions/setup-node@v2
-              with:
-                  node-version: '18'
-            - name: Install dependencies
-              run: npm install
-            - name: Build App
-              run: npm run build
+            - name: bump version
+              run: |
+                npm version patch -m "bump version to %s"
+                git push origin main --tags
+            
