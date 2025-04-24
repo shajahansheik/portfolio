@@ -25,5 +25,5 @@ jobs:
                 npm version patch
                 curr_version=$(node -p "require('./package.json').version")
                 echo "Current version: $curr_version"
-                git push https://${{secrets.MY_PAT_TOKEN}}github.com/shajahansheik/portfolio.git HEAD:main --follow-tags
+                git push https://${{secrets.MY_PAT_TOKEN}}@github.com/shajahansheik/portfolio.git HEAD:main --follow-tags
                 echo "Version updated to $curr_version"
