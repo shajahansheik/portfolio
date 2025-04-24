@@ -29,3 +29,4 @@ jobs:
                 echo "Current version: $curr_version"
                 git push https://${{secrets.MY_PAT_TOKEN}}@github.com/shajahansheik/portfolio
                 echo "Version updated to $curr_version"
+                echo "::set-output name=version::$curr_version"
