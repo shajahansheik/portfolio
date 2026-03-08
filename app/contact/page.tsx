@@ -1,4 +1,5 @@
-import React from 'react'
+'use client';
+import React, { useState } from 'react'
 import BottomNav from '../components/bottomnav'
 import { BuildingOffice2Icon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline'
 import contactData from '@/data/contact.json'
@@ -9,7 +10,107 @@ const iconMap = {
   PhoneIcon
 }
 
-export default function page() {
+export default function Page() {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState({ type: '', text: '' });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const getGeolocation = (): Promise<{ coordinates: { lat: number | null; lng: number | null }; location: string }> => {
+    return new Promise((resolve) => {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+            
+            // Try to get location name from reverse geocoding
+            try {
+              const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+              );
+              const data = await response.json();
+              const location = data.address?.city || data.address?.town || data.address?.country || 'Unknown';
+              
+              resolve({
+                coordinates: { lat: latitude, lng: longitude },
+                location: location
+              });
+            } catch {
+              resolve({
+                coordinates: { lat: latitude, lng: longitude },
+                location: 'Unknown'
+              });
+            }
+          },
+          () => {
+            // Geolocation denied or failed
+            resolve({
+              coordinates: { lat: null, lng: null },
+              location: 'Unknown'
+            });
+          }
+        );
+      } else {
+        resolve({
+          coordinates: { lat: null, lng: null },
+          location: 'Unknown'
+        });
+      }
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage({ type: '', text: '' });
+
+    try {
+      // Get geolocation
+      const geoData = await getGeolocation();
+
+      // Submit form with geolocation data
+      const response = await fetch('/api/contact/submissions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          ...geoData
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitMessage({ type: 'success', text: 'Message sent successfully! We\'ll get back to you soon.' });
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          message: ''
+        });
+      } else {
+        setSubmitMessage({ type: 'error', text: 'Failed to send message. Please try again.' });
+      }
+    } catch (error) {
+      setSubmitMessage({ type: 'error', text: 'An error occurred. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="h-full bg-gradient-to-br from-green-50 via-white to-blue-50">
       <div className="h-[88%] overflow-y-auto">
@@ -56,7 +157,18 @@ export default function page() {
           </div>
 
           {/* Contact Form */}
-          <form className='p-6 sm:p-10 lg:p-20 animate-slide-in-right'>
+          <form className='p-6 sm:p-10 lg:p-20 animate-slide-in-right' onSubmit={handleSubmit}>
+            {/* Success/Error Message */}
+            {submitMessage.text && (
+              <div className={`mb-6 p-4 rounded-lg animate-fade-in ${
+                submitMessage.type === 'success' 
+                  ? 'bg-green-50 text-green-700 border border-green-200' 
+                  : 'bg-red-50 text-red-700 border border-red-200'
+              }`}>
+                {submitMessage.text}
+              </div>
+            )}
+
             <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
               <div className="animate-fade-in delay-300">
                 <label htmlFor="first-name" className="block text-sm font-semibold text-gray-900">
@@ -65,9 +177,12 @@ export default function page() {
                 <div className="mt-2.5">
                   <input
                     id="first-name"
-                    name="first-name"
+                    name="firstName"
                     type="text"
                     autoComplete="given-name"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    required
                     className="block w-full rounded-lg bg-white px-4 py-3 text-base text-gray-900 border border-gray-300 placeholder:text-gray-400 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all duration-300"
                   />
                 </div>
@@ -79,9 +194,12 @@ export default function page() {
                 <div className="mt-2.5">
                   <input
                     id="last-name"
-                    name="last-name"
+                    name="lastName"
                     type="text"
                     autoComplete="family-name"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
                     className="block w-full rounded-lg bg-white px-4 py-3 text-base text-gray-900 border border-gray-300 placeholder:text-gray-400 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all duration-300"
                   />
                 </div>
@@ -96,6 +214,9 @@ export default function page() {
                     name="email"
                     type="email"
                     autoComplete="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
                     className="block w-full rounded-lg bg-white px-4 py-3 text-base text-gray-900 border border-gray-300 placeholder:text-gray-400 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all duration-300"
                   />
                 </div>
@@ -107,9 +228,11 @@ export default function page() {
                 <div className="mt-2.5">
                   <input
                     id="phone-number"
-                    name="phone-number"
+                    name="phone"
                     type="tel"
                     autoComplete="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
                     className="block w-full rounded-lg bg-white px-4 py-3 text-base text-gray-900 border border-gray-300 placeholder:text-gray-400 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all duration-300"
                   />
                 </div>
@@ -123,8 +246,10 @@ export default function page() {
                     id="message"
                     name="message"
                     rows={4}
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
                     className="block w-full rounded-lg bg-white px-4 py-3 text-base text-gray-900 border border-gray-300 placeholder:text-gray-400 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all duration-300 resize-none"
-                    defaultValue={''}
                   />
                 </div>
               </div>
@@ -132,9 +257,10 @@ export default function page() {
             <div className="mt-8 flex justify-end animate-fade-in delay-800">
               <button
                 type="submit"
-                className="rounded-lg bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-3 text-center text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 hover:from-violet-700 hover:to-purple-700"
+                disabled={isSubmitting}
+                className="rounded-lg bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-3 text-center text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 hover:from-violet-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                Send message
+                {isSubmitting ? 'Sending...' : 'Send message'}
               </button>
             </div>
           </form>

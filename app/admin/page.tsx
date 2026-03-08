@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-type Section = 'skills' | 'experience' | 'education' | 'projects' | 'profile' | 'contact';
+type Section = 'skills' | 'experience' | 'education' | 'projects' | 'profile' | 'contact' | 'submissions';
 
 export default function AdminPage() {
   const router = useRouter();
@@ -19,6 +19,7 @@ export default function AdminPage() {
   const [educationData, setEducationData] = useState<any>(null);
   const [projectsData, setProjectsData] = useState<any>(null);
   const [contactData, setContactData] = useState<any>(null);
+  const [submissionsData, setSubmissionsData] = useState<any>(null);
 
   useEffect(() => {
     const auth = sessionStorage.getItem('adminAuth');
@@ -49,13 +50,14 @@ export default function AdminPage() {
   const loadData = async () => {
     setLoading(true);
     try {
-      const [profile, skills, experience, education, projects, contact] = await Promise.all([
+      const [profile, skills, experience, education, projects, contact, submissions] = await Promise.all([
         fetch('/api/admin/profile').then(r => r.json()),
         fetch('/api/admin/skills').then(r => r.json()),
         fetch('/api/admin/experience').then(r => r.json()),
         fetch('/api/admin/education').then(r => r.json()),
         fetch('/api/admin/projects').then(r => r.json()),
         fetch('/api/admin/contact').then(r => r.json()),
+        fetch('/api/contact/submissions').then(r => r.json()),
       ]);
       setProfileData(profile);
       setSkillsData(skills);
@@ -63,6 +65,7 @@ export default function AdminPage() {
       setEducationData(education);
       setProjectsData(projects);
       setContactData(contact);
+      setSubmissionsData(submissions);
     } catch (error) {
       setMessage({ type: 'error', text: 'Failed to load data' });
     } finally {
@@ -161,7 +164,7 @@ export default function AdminPage() {
 
         {/* Navigation Tabs */}
         <div className="bg-white rounded-xl shadow-lg p-2 mb-6 flex flex-wrap gap-2 sticky top-20 z-40">
-          {(['profile', 'skills', 'experience', 'education', 'projects', 'contact'] as Section[]).map((section) => (
+          {(['profile', 'skills', 'experience', 'education', 'projects', 'contact', 'submissions'] as Section[]).map((section) => (
             <button
               key={section}
               onClick={() => setActiveSection(section)}
@@ -201,6 +204,9 @@ export default function AdminPage() {
               )}
               {activeSection === 'contact' && contactData && (
                 <ContactEditor data={contactData} setData={setContactData} onSave={() => handleSave('contact')} />
+              )}
+              {activeSection === 'submissions' && submissionsData && (
+                <SubmissionsViewer data={submissionsData} onRefresh={loadData} />
               )}
             </>
           )}
@@ -692,6 +698,169 @@ function ContactEditor({ data, setData, onSave }: any) {
       >
         Save Contact Info
       </button>
+    </div>
+  );
+}
+
+// Submissions Viewer Component
+function SubmissionsViewer({ data, onRefresh }: any) {
+  const [deleting, setDeleting] = useState<number | null>(null);
+
+  const handleDelete = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this submission?')) return;
+    
+    setDeleting(id);
+    try {
+      const response = await fetch(`/api/contact/submissions?id=${id}`, {
+        method: 'DELETE',
+      });
+      
+      if (response.ok) {
+        onRefresh();
+      } else {
+        alert('Failed to delete submission');
+      }
+    } catch (error) {
+      alert('An error occurred');
+    } finally {
+      setDeleting(null);
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  const openInMaps = (lat: number | null, lng: number | null) => {
+    if (lat && lng) {
+      window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank');
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">Contact Form Submissions</h2>
+          <p className="text-sm text-gray-600 mt-1">
+            Total submissions: {data.submissions.length}
+          </p>
+        </div>
+        <button
+          onClick={onRefresh}
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300"
+        >
+          Refresh
+        </button>
+      </div>
+
+      {data.submissions.length === 0 ? (
+        <div className="text-center py-12 text-gray-500">
+          <p className="text-lg">No submissions yet</p>
+          <p className="text-sm mt-2">Submissions from the contact form will appear here</p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {data.submissions.map((submission: any) => (
+            <div key={submission.id} className="p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow duration-300">
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {submission.firstName} {submission.lastName}
+                  </h3>
+                  <p className="text-sm text-gray-500">{formatDate(submission.submittedAt)}</p>
+                </div>
+                <button
+                  onClick={() => handleDelete(submission.id)}
+                  disabled={deleting === submission.id}
+                  className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm disabled:opacity-50"
+                >
+                  {deleting === submission.id ? 'Deleting...' : 'Delete'}
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 uppercase">Email</label>
+                  <p className="text-sm text-gray-900">
+                    <a href={`mailto:${submission.email}`} className="text-violet-600 hover:underline">
+                      {submission.email}
+                    </a>
+                  </p>
+                </div>
+
+                {submission.phone && (
+                  <div>
+                    <label className="text-xs font-semibold text-gray-600 uppercase">Phone</label>
+                    <p className="text-sm text-gray-900">
+                      <a href={`tel:${submission.phone}`} className="text-violet-600 hover:underline">
+                        {submission.phone}
+                      </a>
+                    </p>
+                  </div>
+                )}
+
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 uppercase">Location</label>
+                  <p className="text-sm text-gray-900">{submission.location || 'Unknown'}</p>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 uppercase">IP Address</label>
+                  <p className="text-sm text-gray-900 font-mono">{submission.ip}</p>
+                </div>
+              </div>
+
+              {submission.coordinates && submission.coordinates.lat && submission.coordinates.lng && (
+                <div className="mb-4 p-3 bg-blue-50 rounded-lg">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <label className="text-xs font-semibold text-gray-600 uppercase">Geographical Coordinates</label>
+                      <p className="text-sm text-gray-900 font-mono">
+                        Lat: {submission.coordinates.lat.toFixed(6)}, Lng: {submission.coordinates.lng.toFixed(6)}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => openInMaps(submission.coordinates.lat, submission.coordinates.lng)}
+                      className="px-3 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition-colors"
+                    >
+                      View on Map
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <div>
+                <label className="text-xs font-semibold text-gray-600 uppercase">Message</label>
+                <p className="text-sm text-gray-900 whitespace-pre-wrap mt-1 p-3 bg-gray-50 rounded">
+                  {submission.message}
+                </p>
+              </div>
+
+              {submission.userAgent && (
+                <details className="mt-4">
+                  <summary className="text-xs font-semibold text-gray-600 uppercase cursor-pointer hover:text-gray-900">
+                    Technical Details
+                  </summary>
+                  <div className="mt-2 p-3 bg-gray-50 rounded text-xs">
+                    <p className="font-mono text-gray-700 break-all">{submission.userAgent}</p>
+                    {submission.language && (
+                      <p className="text-gray-600 mt-2">Language: {submission.language}</p>
+                    )}
+                  </div>
+                </details>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
