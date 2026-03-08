@@ -3,7 +3,7 @@
   "greeting": "Hello",
   "title": "A Bit About Me",
   "description": "Experienced Full Stack Developer skilled in Angular, Next.js, Nest.js, and GraphQL. Expertise in EMR systems, API design, state machines, and Twilio integration. Passionate about building robust, user-friendly applications and collaborating effectively.",
-  "profileImage": "/Shajahan.png",
+  "profileImage": "/shajahan.png",
   "links": [
     {
       "title": "Resume",
