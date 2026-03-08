@@ -5,14 +5,14 @@ export default function BottomNav() {
   return (
     <>
       <div className='mx-4 sm:mx-8 lg:mx-16 text-gray-300'><hr/></div>
-      <div className='flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4 mx-4 sm:mx-8 lg:mx-32 font-sans text-sm py-4 px-4 sm:px-8 lg:px-20'>
+      <div className='flex flex-col md:flex-row items-center justify-between gap-4 md:gap-4 mx-4 sm:mx-8 lg:mx-32 font-sans text-xs sm:text-sm py-3 md:py-4 px-2 sm:px-4 md:px-8 lg:px-20'>
         {/* Email Section */}
         <div className='flex flex-col space-y-1 text-center md:text-left'>
-          <span className='text-gray-400 font-semibold'>Email</span>
-          <span>
+          <span className='text-gray-400 font-semibold text-xs sm:text-sm'>Email</span>
+          <span className='text-xs sm:text-sm'>
             <a 
               href="mailto:shajahan.j2se@gmail.com" 
-              className="hover:text-violet-600 transition-colors duration-300 hover:underline"
+              className="hover:text-violet-600 transition-colors duration-300 hover:underline break-all"
             >
               shajahan.j2se@gmail.com
             </a>
@@ -21,25 +21,25 @@ export default function BottomNav() {
 
         {/* Social Media Section */}
         <div className='flex flex-col space-y-2 text-center'>
-          <span className='text-gray-400 font-semibold'>Follow Me</span>
-          <div className='flex space-x-2 justify-center'>
+          <span className='text-gray-400 font-semibold text-xs sm:text-sm'>Follow Me</span>
+          <div className='flex space-x-3 sm:space-x-4 justify-center'>
             <Link 
               href='https://www.linkedin.com/in/shajahan-shaik-22b012195/' 
               target='_blank'
-              className='hover:scale-110 transition-transform duration-300'
+              className='hover:scale-110 transition-transform duration-300 active:scale-95'
               aria-label="LinkedIn"
             >
-              <svg width="25px" height="25px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <svg width="20px" height="20px" className="sm:w-[25px] sm:h-[25px]" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none">
                 <path fill="#0A66C2" d="M12.225 12.225h-1.778V9.44c0-.664-.012-1.519-.925-1.519-.926 0-1.068.724-1.068 1.47v2.834H6.676V6.498h1.707v.783h.024c.348-.594.996-.95 1.684-.925 1.802 0 2.135 1.185 2.135 2.728l-.001 3.14zM4.67 5.715a1.037 1.037 0 01-1.032-1.031c0-.566.466-1.032 1.032-1.032.566 0 1.031.466 1.032 1.032 0 .566-.466 1.032-1.032 1.032zm.889 6.51h-1.78V6.498h1.78v5.727zM13.11 2H2.885A.88.88 0 002 2.866v10.268a.88.88 0 00.885.866h10.226a.882.882 0 00.889-.866V2.865a.88.88 0 00-.889-.864z" />
               </svg>
             </Link>
             <Link 
               href='https://github.com/shajahansheik' 
               target='_blank'
-              className='hover:scale-110 transition-transform duration-300'
+              className='hover:scale-110 transition-transform duration-300 active:scale-95'
               aria-label="GitHub"
             >
-              <svg width="24px" height="24px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <svg width="20px" height="20px" className="sm:w-[24px] sm:h-[24px]" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                   <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)" fill="#000000">
                     <g id="icons" transform="translate(56.000000, 160.000000)">
@@ -52,10 +52,10 @@ export default function BottomNav() {
             <Link 
               href='https://www.instagram.com/shajahan__shaik/' 
               target='_blank'
-              className='hover:scale-110 transition-transform duration-300'
+              className='hover:scale-110 transition-transform duration-300 active:scale-95'
               aria-label="Instagram"
             >
-              <svg width="25px" height="25px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="20px" height="20px" className="sm:w-[25px] sm:h-[25px]" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#paint0_radial_87_7153)" />
                 <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#paint1_radial_87_7153)" />
                 <rect x="2" y="2" width="28" height="28" rx="6" fill="url(#paint2_radial_87_7153)" />
@@ -87,8 +87,8 @@ export default function BottomNav() {
 
         {/* Location Section */}
         <div className='flex flex-col space-y-1 text-center md:text-right'>
-          <span className='text-gray-400 font-semibold'>Location</span>
-          <span>Hyderabad, Telangana</span>
+          <span className='text-gray-400 font-semibold text-xs sm:text-sm'>Location</span>
+          <span className='text-xs sm:text-sm'>Hyderabad, Telangana</span>
         </div>
       </div>
     </>
