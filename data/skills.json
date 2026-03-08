@@ -1,0 +1,34 @@
+{
+  "skills": [
+    {
+      "id": 1,
+      "category": "Languages",
+      "items": ["JavaScript", "HTML", "CSS"]
+    },
+    {
+      "id": 2,
+      "category": "Frameworks",
+      "items": ["Angular", "Node.js", "Nest.js", "React", "Next.js"]
+    },
+    {
+      "id": 3,
+      "category": "Databases",
+      "items": ["MongoDB", "SQL", "PostgreSQL"]
+    },
+    {
+      "id": 4,
+      "category": "Technologies",
+      "items": ["Git", "GraphQL", "Temporal", "Hasura"]
+    },
+    {
+      "id": 5,
+      "category": "Data Visualization Tools",
+      "items": ["Mongocharts", "GoogleCharts", "E-Charts"]
+    },
+    {
+      "id": 6,
+      "category": "Cloud",
+      "items": ["GitHub Actions", "AWS", "AZURE"]
+    }
+  ]
+}

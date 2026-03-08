@@ -1,0 +1,14 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "EMR",
+      "description": "Developed a comprehensive Electronic Medical Records system using Angular, Nest.js, and MongoDB. Implemented features for patient management, appointment scheduling, medical history tracking, and prescription management. Integrated state machines using XState for complex workflows and utilized Temporal for background task automation. Built responsive UI components with Angular Material and Tailwind CSS, ensuring seamless user experience across devices."
+    },
+    {
+      "id": 2,
+      "title": "Smart Reports",
+      "description": "Created an intelligent reporting platform that generates dynamic medical reports with data visualization capabilities. Implemented custom charts and graphs using ECharts library to present patient data in an intuitive format. Integrated PDF generation using Puppeteer for exporting reports. Built RESTful APIs with Nest.js and utilized GraphQL with Hasura for efficient data querying. Designed responsive layouts with Tailwind CSS for optimal viewing on different screen sizes."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "experience": [
+    {
+      "id": 1,
+      "period": "Oct 2024 - Present",
+      "position": "Software Developer",
+      "company": "Health Net Global",
+      "description": "Lead the development of an EMR project using Angular, Material, and Tailwind CSS, creating components, services, and modules for patient management. Built and integrated APIs with Nest.js for seamless interaction with MongoDB and the frontend. Utilized XState for state management, Temporal for task automation, and Hasura and GraphQL for efficient data handling. Developed responsive user interfaces and collaborated with teams to ensure project success."
+    },
+    {
+      "id": 2,
+      "period": "Feb 2024 - Oct 2024",
+      "position": "Software Development Engineer",
+      "company": "Opstronomy Health Technologies Private Limited",
+      "description": "Contributed to health technology solutions, focusing on building scalable applications and integrating modern development practices."
+    },
+    {
+      "id": 3,
+      "period": "Jul 2021 - Jan 2024",
+      "position": "Software Development Engineer",
+      "company": "Health Net Global",
+      "description": "Developed and maintained patient medical record web applications using Next.js and Nest.js, with data sourced from backend services in JSON format. Designed responsive interfaces with Tailwind CSS and created dynamic data visualizations using ECharts. Integrated WhatsApp messaging via Twilio and generated PDFs using Puppeteer. Implemented media queries for responsive design and added side navigation for enhanced user experience. Collaborated with cross-functional teams to deliver robust and user-friendly solutions."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Get in touch",
+  "description": "Have a project in mind or just want to connect? Feel free to reach out! I'm always open to discussing new opportunities, collaborations, or just chatting about tech. Let's build something amazing together!",
+  "contactInfo": [
+    {
+      "id": 1,
+      "type": "address",
+      "icon": "BuildingOffice2Icon",
+      "value": "Hyderabad, Telangana"
+    },
+    {
+      "id": 2,
+      "type": "phone",
+      "icon": "PhoneIcon",
+      "value": "+91 8639445655",
+      "link": "tel:+918639445655"
+    },
+    {
+      "id": 3,
+      "type": "email",
+      "icon": "EnvelopeIcon",
+      "value": "shajahan.j2se@gmail.com",
+      "link": "mailto:shajahan.j2se@gmail.com"
+    }
+  ]
+}

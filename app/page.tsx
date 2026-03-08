@@ -1,30 +1,62 @@
 import Image from "next/image";
 import Link from "next/link";
 import BottomNav from "./components/bottomnav";
+import profileData from "@/data/profile.json";
 
 export default function Home() {
   return (
-    <div className="h-full">
-      <div className="h-[88%] flex items-center justify-center">
-      <div className="flex space-x-5 items-center justify-center ">
-        <div>
-          <Image src='/profile.jpeg' alt="Shajahan" width={320} height={320} className="rounded-full grayscale" />
-        </div>
-        <div className="flex flex-col space-y-2">
-          <span className="text-3xl font-semibold font-mono">Hello</span>
-          <span className="text-lg font-semibold ">A Bit About Me</span>
-          <p className="w-[32rem] flex flex-wrap indent-4 text-sm">Experienced Full Stack Developer skilled in Angular, Next.js, Nest.js, and GraphQL. Expertise in EMR systems, API design, state machines, and Twilio integration. Passionate about building robust, user-friendly applications and collaborating effectively.</p>
-          <div className="flex space-x-10">
-            <Link href='/resume' className='w-24 h-24 rounded-full bg-yellow-300 hover:bg-yellow-400 flex items-center justify-center p-12 border border-gray-400'>Resume</Link>
-            <Link href='/projects' className='w-24 h-24 rounded-full bg-red-300 hover:bg-red-400 flex items-center justify-center p-12 border border-gray-400'>Projects</Link>
-            <Link href='/contact' className='w-24 h-24 rounded-full bg-blue-300 hover:bg-blue-400 flex items-center justify-center p-12 border border-gray-400'>Contact</Link>
+    <div className="h-full bg-gradient-to-br from-purple-50 via-white to-blue-50">
+      <div className="h-[88%] flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-10 items-center justify-center max-w-7xl w-full">
+          {/* Profile Image */}
+          <div className="animate-scale-in">
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200 animate-pulse-slow"></div>
+              <Image 
+                src={profileData.profileImage} 
+                alt={profileData.name} 
+                width={320} 
+                height={320} 
+                className="relative rounded-full grayscale hover:grayscale-0 transition-all duration-500 border-4 border-white shadow-2xl"
+              />
+            </div>
+          </div>
+
+          {/* Profile Content */}
+          <div className="flex flex-col space-y-4 animate-fade-in delay-200 max-w-2xl">
+            <span className="text-4xl sm:text-5xl font-semibold font-mono gradient-text animate-slide-in-left">
+              {profileData.greeting}
+            </span>
+            <span className="text-xl sm:text-2xl font-semibold animate-slide-in-left delay-100">
+              {profileData.title}
+            </span>
+            <p className="w-full text-sm sm:text-base leading-relaxed text-gray-700 animate-fade-in delay-300 indent-4">
+              {profileData.description}
+            </p>
+            
+            {/* Action Links */}
+            <div className="flex flex-wrap gap-6 sm:gap-10 pt-4 justify-center sm:justify-start">
+              {profileData.links.map((link, index) => (
+                <Link 
+                  key={index}
+                  href={link.url} 
+                  className={`w-24 h-24 sm:w-28 sm:h-28 rounded-full ${link.bgColor} ${link.hoverColor} 
+                    flex items-center justify-center p-8 sm:p-12 border-2 border-gray-400 
+                    transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:rotate-3
+                    animate-scale-in delay-${300 + index * 100} font-semibold text-center text-sm
+                    hover:border-gray-600 card-hover`}
+                  style={{ animationDelay: `${400 + index * 100}ms` }}
+                >
+                  {link.title}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-      </div>
       <div className="h-[12%]">
         <BottomNav/>
-        </div>
+      </div>
     </div>
   );
 }
