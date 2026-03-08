@@ -183,6 +183,12 @@ html {
   background-clip: text;
 }
 
+/* Ensure proper scrolling */
+html, body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 /* Responsive utilities */
 @media (max-width: 768px) {
   .hide-mobile {
@@ -195,4 +201,3 @@ html {
     display: none !important;
   }
 }
-
