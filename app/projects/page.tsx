@@ -4,32 +4,114 @@ import projectsData from '@/data/projects.json'
 
 export default function page() {
   return (
-    <div className='space-y-5 bg-gradient-to-br from-pink-50 via-white to-purple-50 h-full'>
-      <div className='px-4 sm:px-8 md:px-12 lg:px-20 xl:px-40 text-xl sm:text-2xl md:text-3xl font-bold gradient-text pt-6 animate-fade-in'>
-        Projects
+    <div className='h-screen flex flex-col bg-gray-50'>
+      {/* Fixed Header Section */}
+      <div className='px-4 sm:px-8 md:px-12 lg:px-20 xl:px-40 pt-8 pb-4 flex-shrink-0'>
+        <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800'>
+          Projects
+        </h1>
       </div>
-      <div className='overflow-y-auto h-[calc(100%-8rem)] py-5 space-y-4 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20'>
-        {projectsData.projects.map((project, index) => (
-          <React.Fragment key={project.id}>
+
+      {/* Scrollable Projects List */}
+      <div className='flex-1 overflow-y-auto px-4 sm:px-8 md:px-12 lg:px-20 xl:px-40 pb-20'>
+        <div className='space-y-6'>
+          {projectsData.projects.map((project) => (
             <div 
-              className='space-y-3 pb-4 sm:pb-6 p-4 sm:p-6 rounded-xl bg-white/70 backdrop-blur-sm shadow-lg hover:shadow-2xl transition-all duration-500 card-hover animate-scale-in'
-              style={{ animationDelay: `${index * 150}ms` }}
+              key={project.id}
+              className='bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow'
             >
-              <div className='px-2 sm:px-4 md:px-6 lg:px-8 text-base sm:text-lg md:text-xl font-bold text-violet-700 flex items-center gap-2'>
-                <span className='w-2 h-2 bg-violet-600 rounded-full animate-pulse-slow'></span>
-                {project.title}
+              {/* Project Header */}
+              <div className='mb-4'>
+                <h2 className='text-xl sm:text-2xl font-bold text-gray-800 mb-2'>
+                  {project.projectName}
+                </h2>
+                <p className='text-sm text-gray-600'>{project.role}</p>
               </div>
-              <div className='px-2 sm:px-4 md:px-6 lg:px-8 indent-4 sm:indent-6 md:indent-10 text-sm sm:text-base leading-relaxed text-gray-700'>
-                <p>{project.description}</p>
+
+              {/* Description */}
+              <p className='text-gray-700 text-sm sm:text-base mb-4 leading-relaxed'>
+                {project.description}
+              </p>
+
+              {/* Tech Stack */}
+              <div className='mb-4'>
+                <div className='flex flex-wrap gap-2'>
+                  {project.techStack.map((tech, techIndex) => (
+                    <span 
+                      key={techIndex}
+                      className='px-3 py-1 bg-blue-50 text-blue-700 rounded-md text-xs sm:text-sm font-medium'
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Responsibilities */}
+              {project.responsibilities && project.responsibilities.length > 0 && (
+                <div className='mb-4'>
+                  <h3 className='text-sm font-semibold text-gray-800 mb-2'>Key Responsibilities:</h3>
+                  <ul className='list-disc list-inside space-y-1 text-xs sm:text-sm text-gray-700'>
+                    {project.responsibilities.map((responsibility, respIndex) => (
+                      <li key={respIndex}>{responsibility}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Additional Details */}
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 pt-4 border-t border-gray-200'>
+                {/* DevOps & Cloud */}
+                {project.devOpsAndCloud && (
+                  <div>
+                    <h3 className='text-sm font-semibold text-gray-800 mb-2'>DevOps & Cloud:</h3>
+                    <div className='space-y-1 text-xs text-gray-600'>
+                      {project.devOpsAndCloud.ciCd && <p>• {project.devOpsAndCloud.ciCd}</p>}
+                      {project.devOpsAndCloud.containerization && <p>• {project.devOpsAndCloud.containerization}</p>}
+                      {project.devOpsAndCloud.cloud && <p>• {project.devOpsAndCloud.cloud}</p>}
+                      {project.devOpsAndCloud.infrastructureAsCode && <p>• {project.devOpsAndCloud.infrastructureAsCode}</p>}
+                    </div>
+                  </div>
+                )}
+
+                {/* Database */}
+                {project.database && (
+                  <div>
+                    <h3 className='text-sm font-semibold text-gray-800 mb-2'>Database & Storage:</h3>
+                    <div className='space-y-1 text-xs text-gray-600'>
+                      {project.database.primary && <p>• Primary DB: {project.database.primary}</p>}
+                      {project.database.storage && <p>• Storage: {project.database.storage}</p>}
+                    </div>
+                  </div>
+                )}
+
+                {/* Observability */}
+                {project.observability && project.observability.length > 0 && (
+                  <div>
+                    <h3 className='text-sm font-semibold text-gray-800 mb-2'>Observability:</h3>
+                    <div className='space-y-1 text-xs text-gray-600'>
+                      {project.observability.map((item, obsIndex) => (
+                        <p key={obsIndex}>• {item}</p>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Optimizations */}
+                {project.optimizations && project.optimizations.length > 0 && (
+                  <div>
+                    <h3 className='text-sm font-semibold text-gray-800 mb-2'>Optimizations:</h3>
+                    <div className='space-y-1 text-xs text-gray-600'>
+                      {project.optimizations.map((item, optIndex) => (
+                        <p key={optIndex}>• {item}</p>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-            {index < projectsData.projects.length - 1 && (
-              <div className='mx-2 sm:mx-4 md:mx-6 lg:mx-8 text-gray-300'>
-                <hr className='border-gray-300'/>
-              </div>
-            )}
-          </React.Fragment>
-        ))}
+          ))}
+        </div>
         <BottomNav />
       </div>
     </div>

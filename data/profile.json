@@ -2,7 +2,7 @@
   "name": "Shajahan",
   "greeting": "Hello",
   "title": "A Bit About Me",
-  "description": "Experienced Full Stack Developer skilled in Angular, Next.js, Nest.js, and GraphQL. Expertise in EMR systems, API design, state machines, and Twilio integration. Passionate about building robust, user-friendly applications and collaborating effectively.",
+  "description": "Full Stack Developer with 4+ years of experience in building scalable healthcare and enterprise applications. Skilled in modern web technologies including Angular, Next.js, NestJS, and GraphQL, with strong expertise in backend architecture and API development.\n\nExperienced in designing microservices-based systems, optimizing application performance, and implementing cloud-native solutions on Azure. Proven track record of working closely with clients and stakeholders to gather requirements, define workflows, and deliver high-quality products.\n\nHands-on experience in DevOps practices, including CI/CD pipelines, Docker, and infrastructure provisioning using Terraform. Adept at improving system reliability through observability, monitoring, and cost optimization strategies.\n\nA proactive team player with leadership experience in mentoring developers, managing tasks, and driving projects from concept to production.",
   "profileImage": "/shajahan.png",
   "links": [
     {

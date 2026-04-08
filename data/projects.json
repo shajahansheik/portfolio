@@ -2,13 +2,90 @@
   "projects": [
     {
       "id": 1,
-      "title": "EMR",
-      "description": "Developed a comprehensive Electronic Medical Records system using Angular, Nest.js, and MongoDB. Implemented features for patient management, appointment scheduling, medical history tracking, and prescription management. Integrated state machines using XState for complex workflows and utilized Temporal for background task automation. Built responsive UI components with Angular Material and Tailwind CSS, ensuring seamless user experience across devices."
+      "projectName": "EMR Studio – Healthcare Application",
+      "role": "Full Stack Developer / Tech Lead",
+      "techStack": [
+        "Angular",
+        "NestJS",
+        "GraphQL",
+        "MongoDB",
+        "Azure",
+        "Docker",
+        "Terraform",
+        "GitHub Actions"
+      ],
+      "description": "A scalable healthcare platform designed to manage hospital workflows including OP consultation, pharmacy, lab, and administration.",
+      "responsibilities": [
+        "Designed and developed key modules: OP Consultation Workflow, Pharmacy, Lab, and Admin",
+        "Built scalable backend APIs using NestJS with GraphQL in a multi-server (microservices-style) architecture",
+        "Developed responsive and dynamic user interfaces using Angular",
+        "Collaborated with clients and stakeholders to gather requirements and define workflows",
+        "Led and mentored team members, guiding architecture and managing task execution",
+        "Optimized application performance, improving response times and system efficiency"
+      ],
+      "devOpsAndCloud": {
+        "ciCd": "Wrote and maintained GitHub Actions CI/CD pipelines",
+        "containerization": "Created and optimized Dockerfiles for containerized deployments",
+        "cloud": "Managed infrastructure on Microsoft Azure",
+        "infrastructureAsCode": "Developed Terraform scripts for infrastructure provisioning"
+      },
+      "observability": [
+        "Implemented logging systems",
+        "Configured metrics monitoring",
+        "Set up alerts for system reliability"
+      ],
+      "optimizations": [
+        "Performed cost optimization on cloud resources",
+        "Improved system performance and efficiency"
+      ],
+      "database": {
+        "primary": "MongoDB",
+        "storage": "Azure Storage services"
+      }
     },
     {
       "id": 2,
-      "title": "Smart Reports",
-      "description": "Created an intelligent reporting platform that generates dynamic medical reports with data visualization capabilities. Implemented custom charts and graphs using ECharts library to present patient data in an intuitive format. Integrated PDF generation using Puppeteer for exporting reports. Built RESTful APIs with Nest.js and utilized GraphQL with Hasura for efficient data querying. Designed responsive layouts with Tailwind CSS for optimal viewing on different screen sizes."
-    }
+  "projectName": "Smart Reports – Digital Patient Reporting System",
+  "role": "Full Stack Developer",
+  "techStack": [
+    "Next.js",
+    "NestJS",
+    "Python",
+    "MongoDB",
+    "Azure",
+    "Tailwind CSS",
+    "Puppeteer",
+    "Twilio",
+    "GitHub Actions"
+  ],
+  "description": "A digital healthcare reporting platform that presents patient data in a clear, visual, and user-friendly format using metrics, color indicators, and organ-based representations.",
+  "responsibilities": [
+    "Developed a digital reporting system to display complete patient health data in an intuitive format",
+    "Designed reports with visual metrics and color indicators for normal, abnormal, and critical conditions",
+    "Built body/organ-based representations for better understanding of patient conditions",
+    "Developed a responsive and high-performance web application using Next.js and Tailwind CSS",
+    "Integrated WhatsApp report sharing using Twilio by sending secure report URLs",
+    "Implemented PDF generation using Puppeteer for downloadable reports",
+    "Optimized application performance for faster loading times",
+    "Managed report data using MongoDB and Azure Storage"
+  ],
+  "devOpsAndCloud": {
+    "ciCd": "Created and maintained GitHub Actions CI/CD pipelines",
+    "containerization": "Worked with containerized deployments where required",
+    "cloud": "Managed application deployment and services on Microsoft Azure",
+    "infrastructureAsCode": "Handled deployment workflows and automation"
+  },
+  "observability": [
+    "Ensured application stability with logging and monitoring practices"
+  ],
+  "optimizations": [
+    "Improved performance and reduced loading time",
+    "Enhanced user experience with responsive and efficient UI design"
+  ],
+  "database": {
+    "primary": "MongoDB",
+    "storage": "Azure Storage services"
+  }
+}
   ]
 }

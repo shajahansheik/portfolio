@@ -30,22 +30,29 @@ export default function TopNav() {
       {/* Desktop Navigation */}
       <div className='hidden md:flex space-x-6 lg:space-x-8'>
         <Link 
+          href='/' 
+          className={`${getTextColor('/')} transition-all duration-300 hover:scale-105 relative group`}
+        >
+          Home
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-600 transition-all duration-300 group-hover:w-full"></span>
+        </Link>
+        <Link 
           href='/resume' 
-          className={`${getTextColor('/resume')} transition-all duration-300 hover:scale-105 relative group`}
+          className={`${getTextColor('/resume/')} transition-all duration-300 hover:scale-105 relative group`}
         >
           Resume
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-600 transition-all duration-300 group-hover:w-full"></span>
         </Link>
         <Link 
           href='/projects' 
-          className={`${getTextColor('/projects')} transition-all duration-300 hover:scale-105 relative group`}
+          className={`${getTextColor('/projects/')} transition-all duration-300 hover:scale-105 relative group`}
         >
           Projects
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-600 transition-all duration-300 group-hover:w-full"></span>
         </Link>
         <Link 
           href='/contact' 
-          className={`${getTextColor('/contact')} transition-all duration-300 hover:scale-105 relative group`}
+          className={`${getTextColor('/contact/')} transition-all duration-300 hover:scale-105 relative group`}
         >
           Contact
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-600 transition-all duration-300 group-hover:w-full"></span>
